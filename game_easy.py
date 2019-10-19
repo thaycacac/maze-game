@@ -1,3 +1,4 @@
+#thaycacac
 import turtle
 import math
 import random
@@ -41,14 +42,14 @@ def init_game(name_level, map_level):
     treasures = []
     monsters = []
 
-    #show mana
-    def show_mana(mana):
+    #show hp
+    def show_hp(hp):
         turtle.clear()
         turtle.color('white')
         turtle.penup()
         turtle.goto(380, 305)
         style = ('Courier', 20, 'bold')
-        turtle.write("Mana: {0}".format(mana), font=style, align='center')
+        turtle.write("HP: {0}".format(hp), font=style, align='center')
         turtle.hideturtle()
 
     #create logo teky
@@ -87,8 +88,8 @@ def init_game(name_level, map_level):
             self.shape(bottom)
             self.penup()
             self.speed(0)
-            self.mana = 500
-            show_mana(self.mana)
+            self.hp = 500
+            show_hp(self.hp)
 
         def up(self):
             self.shape(top)
@@ -139,7 +140,7 @@ def init_game(name_level, map_level):
             else:
                 self.number_random = random.randint(3, 4)
             self.shape(image_treasures[self.number_random])
-            self.mana = (self.number_random + 1) * 100
+            self.hp = (self.number_random + 1) * 100
             self.penup()
             self.speed(0)
             self.goto(x, y)
@@ -173,7 +174,7 @@ def init_game(name_level, map_level):
             else:
                 self.number_random = random.randint(3, 4)
             self.shape(image_monsters[self.number_random])
-            self.mana = -(self.number_random + 1) * 100
+            self.hp = -(self.number_random + 1) * 100
             self.penup()
             self.speed(0)
             self.gold = -25
@@ -250,17 +251,17 @@ def init_game(name_level, map_level):
     while True:
         for treasure in treasures:
             if player.is_collision(treasure):
-                player.mana += treasure.mana
-                show_mana(player.mana)
+                player.hp += treasure.hp
+                show_hp(player.hp)
                 treasure.destroy()
                 treasures.remove(treasure)
         for monster in monsters:
             if player.is_collision(monster):
-                player.mana += monster.mana
-                show_mana(player.mana)
+                player.hp += monster.hp
+                show_hp(player.hp)
                 monster.destroy()
                 monsters.remove(monster)
-                if player.mana <= 0:
+                if player.hp <= 0:
                     turtle.clearscreen()
                     turtle.color('red')
                     turtle.penup()
